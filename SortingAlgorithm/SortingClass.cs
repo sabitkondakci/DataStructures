@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace SortingAlgorithms
         //-Quick Sort is non stable and in place-
         //Radix Sort O(n) time complexity   very slow!
         //Heap Sort O(nlogn) time complexity - non stable , in place-
-        public void InsertionSort(K[] array)
+        public void InsertionSort(K[] array) //Sıralanmış listelerde indeks bozulmalarını düzeltmede etkili bir yöntemdir.
         {
             if (array == null)
                 throw new ArgumentNullException("array");
@@ -29,8 +30,8 @@ namespace SortingAlgorithms
                 K v = array[i];
                 for (int j = i - 1; j >= 0; j--)
                 {
-                    if (array[j].CompareTo(v) <= 0)
-                    {
+                    if (array[j].CompareTo(v) <= 0) //Worst case time complexity O(n^2)
+                    {                               //Best case time complexity O(n), for already sorted list
                         break;
                     }
 
@@ -61,6 +62,59 @@ namespace SortingAlgorithms
 
             return array;
         }
+        public K BinarySearch(K value, params K[] array)
+        {
+            if (array == null)
+                throw new ArgumentNullException("array");
+
+            Array.Sort(array);
+            int size = array.Length;
+            int middleElement = 0, left = 0, right = array.Length-1;
+
+            while (left<=right)
+            {
+                middleElement = (left + right) / 2;
+
+                if (array[middleElement].CompareTo(value) < 0)
+                {
+                    left = middleElement+1;
+                }
+                else if(array[middleElement].CompareTo(value) > 0)
+                {
+                    right = middleElement-1;
+                }
+                else
+                {
+                    return array[middleElement];
+                }
+            }
+
+            return default;
+
+        }
+        public void BubbleSort(params K[] array)
+        {
+            if (array == null)
+                throw new ArgumentNullException("array");
+            int repeat = array.Length - 1;
+            for (int i = 0; i < repeat; i++)
+            {
+                int checkFlag = 0;
+                for (int j = 0; j < repeat-i; j++)
+                {
+                    if (array[j].CompareTo(array[j + 1]) > 0)
+                    {
+                        SwapSort(j, j + 1, array);
+                        checkFlag = 1;
+                    }
+                }
+
+                if (checkFlag == 0) break;
+            }
+
+            
+        }//O(n^2) worst case time complexity
+
         public void ShellSort(K[] array)
         {
             if (array == null)
@@ -121,22 +175,22 @@ namespace SortingAlgorithms
             if (arr == null)
                 throw new ArgumentNullException("array");
 
-            if (lower_bound<upper_bound)
+            if (lower_bound < upper_bound)
             {
                 int midIndex = (lower_bound + upper_bound) / 2;
-                MergeSort(arr,lower_bound,midIndex);
-                MergeSort(arr,midIndex+1,upper_bound);
-                Merge(arr,lower_bound,midIndex,upper_bound);
+                MergeSort(arr, lower_bound, midIndex);
+                MergeSort(arr, midIndex + 1, upper_bound);
+                Merge(arr, lower_bound, midIndex, upper_bound);
             }
         }
         private void Merge(K[] arr, int lowerBound, int midIndex, int upperBound)
         {
             int i = lowerBound, j = midIndex + 1, k = lowerBound;
-            K[] tempArr= new K[upperBound+1];
+            K[] tempArr = new K[upperBound + 1];
 
-            while (i<=midIndex && j<=upperBound)
+            while (i <= midIndex && j <= upperBound)
             {
-                if (arr[i].CompareTo(arr[j])<=0)
+                if (arr[i].CompareTo(arr[j]) <= 0)
                 {
                     tempArr[k] = arr[i];
                     i++;
@@ -150,9 +204,9 @@ namespace SortingAlgorithms
                 k++;
             }
 
-            if (i>midIndex)
+            if (i > midIndex)
             {
-                while (j<=upperBound)
+                while (j <= upperBound)
                 {
                     tempArr[k] = arr[j];
                     j++;
@@ -161,7 +215,7 @@ namespace SortingAlgorithms
             }
             else
             {
-                while (i<=midIndex)
+                while (i <= midIndex)
                 {
                     tempArr[k] = arr[i];
                     i++;
