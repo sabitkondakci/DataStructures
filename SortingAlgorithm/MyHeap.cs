@@ -20,10 +20,7 @@ namespace SortingAlgorithms
             array = new T[size];
             lastPosition = 0;
         }
-        public MyHeap()
-        {
-            
-        }
+    
         public void Add(T value)  
         {
             array[lastPosition] = value; //Son indekse veri yerlestirilir
