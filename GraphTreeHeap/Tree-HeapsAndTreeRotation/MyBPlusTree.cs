@@ -91,7 +91,7 @@ namespace TreeAndHeaps
                     }
                     else if (exist)
                     {
-                        // shift the rest of the keys down
+                       // Anahtarları aşağıya doğru kaydırırı, yapraklara doğru
                         keys[i - 1] = keys[i];
                     }
                 }
@@ -113,7 +113,7 @@ namespace TreeAndHeaps
                 K value = keys[index];
                 for (int i = index + 1; i < keySize; i++)
                 {
-                    // shift the rest of the keys down
+                    // Kalan anahtar, indeksleri aşağıya kaydırır
                     keys[i - 1] = keys[i];
                 }
                 keySize--;
@@ -161,7 +161,7 @@ namespace TreeAndHeaps
                     }
                     else if (found)
                     {
-                        // shift the rest of the keys down
+                        //Anahtarları aşağıya kaydırır
                         children[i - 1] = children[i];
                     }
                 }
@@ -180,8 +180,7 @@ namespace TreeAndHeaps
                 Node value = children[index];
                 children[index] = null;
                 for (int i = index + 1; i < childrenSize; i++)
-                {
-                    // shift the rest of the keys down
+                {                   
                     children[i - 1] = children[i];
                 }
                 childrenSize--;
@@ -250,25 +249,21 @@ namespace TreeAndHeaps
                     {
                         node.AddKeyValue(key,value);
                         if (node.NumberOfKeys() <= maxKeySize)
-                        {
-                            // A-OK
+                        {                            
                             break;
                         }
-                        // Need to split up
+                       // Ayırma işlemi uygulanır
                         Split(node);
                         break;
                     }
-                    // Navigate
-
-                    // Lesser or equal
+                                      
                     K lesser = node.GetKey(0);
                     if (key.CompareTo(lesser) <= 0)
                     {
                         node = node.GetChild(0);
                         continue;
                     }
-
-                    // Greater
+          
                     int numberOfKeys = node.NumberOfKeys();
                     int last = numberOfKeys - 1;
                     K greater = node.GetKey(last);
@@ -278,7 +273,7 @@ namespace TreeAndHeaps
                         continue;
                     }
 
-                    // Search internal nodes
+                    //İç düğümlerin taranması
                     for (int i = 1; i < node.NumberOfKeys(); i++)
                     {
                         K prev = node.GetKey(i - 1);
@@ -333,14 +328,13 @@ namespace TreeAndHeaps
                     this.Combined(node);
                 }
                 else if (node.parent == null && node.NumberOfKeys() == 0)
-                {
-                    // Removing root node with no keys or children
+                {                   
                     root = null;
                 }
             }
             else
             {
-                // internal node
+                // İç düğümler
                 Node lesser = node.GetChild(index);
                 Node greatest = this.GetGreatestNode(lesser);
                 K replacekey = this.RemoveGreatestValue(greatest);
@@ -491,8 +485,7 @@ namespace TreeAndHeaps
                 node.AddChild(right);
             }
             else
-            {
-                // Move the median value up to the parent
+            {            
                 Node parent = node.parent;
                 parent.AddKeyValue(medianValue,default);
                 parent.RemoveChild(node);
@@ -522,18 +515,15 @@ namespace TreeAndHeaps
             {
                 // root
                 if (keySize > maxKeySize)
-                {
-                    // check max key size. root does not have a min key size
+                {                   
                     return false;
                 }
                 else if (childrenSize == 0)
-                {
-                    // if root, no children, and keys are valid
+                {                    
                     return true;
                 }
                 else if (childrenSize < 2)
-                {
-                    // root should have zero or at least two children
+                {                   
                     return false;
                 }
                 else if (childrenSize > maxChildrenSize)
@@ -542,8 +532,7 @@ namespace TreeAndHeaps
                 }
             }
             else
-            {
-                // non-root
+            {              
                 if (keySize < minKeySize)
                 {
                     return false;
@@ -557,9 +546,7 @@ namespace TreeAndHeaps
                     return true;
                 }
                 else if (keySize != (childrenSize - 1))
-                {
-                    // If there are chilren, there should be one more child then
-                    // keys
+                {                                    
                     return false;
                 }
                 else if (childrenSize < minChildrenSize)
@@ -573,16 +560,16 @@ namespace TreeAndHeaps
             }
 
             Node first = node.GetChild(0);
-            // The first child's last key should be less than the node's first key
+            
             if (first.GetKey(first.NumberOfKeys() - 1).CompareTo(node.GetKey(0)) > 0)
                 return false;
 
             Node last = node.GetChild(node.NumberOfChildren() - 1);
-            // The last child's first key should be greater than the node's last key
+           
             if (last.GetKey(0).CompareTo(node.GetKey(node.NumberOfKeys() - 1)) < 0)
                 return false;
 
-            // Check that each node's first and last key holds it's invariance
+            
             for (int i = 1; i < node.NumberOfKeys(); i++)
             {
                 K p = node.GetKey(i - 1);
@@ -648,10 +635,10 @@ namespace TreeAndHeaps
                 rightNeighborSize = rightNeighbor.NumberOfKeys();
             }
 
-            // Try to borrow neighbor
+            
             if (rightNeighbor != null && rightNeighborSize > minKeySize)
             {
-                // Try to borrow from right neighbor
+                
                 K removeValue = rightNeighbor.GetKey(0);
                 int prev = GetIndexOfPreviousValue(parent, removeValue);
                 K parentValue = parent.RemoveKey(prev);
@@ -675,7 +662,7 @@ namespace TreeAndHeaps
 
                 if (leftNeighbor != null && leftNeighborSize > minKeySize)
                 {
-                    // Try to borrow from left neighbor
+                   
                     K removeValue = leftNeighbor.GetKey(leftNeighbor.NumberOfKeys() - 1);
                     int prev = GetIndexOfNextValue(parent, removeValue);
                     K parentValue = parent.RemoveKey(prev);
@@ -708,20 +695,17 @@ namespace TreeAndHeaps
 
                     if (parent.parent != null && parent.NumberOfKeys() < minKeySize)
                     {
-                        // removing key made parent too small, combined up tree
+                       
                         this.Combined(parent);
                     }
                     else if (parent.NumberOfKeys() == 0)
-                    {
-                        // parent no longer has keys, make this node the new root
-                        // which decreases the height of the tree
+                    {             
                         node.parent = null;
                         root = node;
                     }
                 }
                 else if (leftNeighbor != null && parent.NumberOfKeys() > 0)
-                {
-                    // Can't borrow from neighbors, try to combined with left neighbor
+                {                  
                     K removeValue = leftNeighbor.GetKey(leftNeighbor.NumberOfKeys() - 1);
                     int prev = GetIndexOfNextValue(parent, removeValue);
                     K parentValue = parent.RemoveKey(prev);
@@ -739,14 +723,11 @@ namespace TreeAndHeaps
                     }
 
                     if (parent.parent != null && parent.NumberOfKeys() < minKeySize)
-                    {
-                        // removing key made parent too small, combined up tree
+                    {                     
                         this.Combined(parent);
                     }
                     else if (parent.NumberOfKeys() == 0)
-                    {
-                        // parent no longer has keys, make this node the new root
-                        // which decreases the height of the tree
+                    {                      
                         node.parent = null;
                         root = node;
                     }
