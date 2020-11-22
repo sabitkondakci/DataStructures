@@ -443,7 +443,7 @@ namespace GraphStructure
             if (!edgesSizeEquals)
                 return false;
 
-            // Vertices can contain duplicates and appear in different order but both arrays should contain the same elements
+            //İkiz düğümler için gereken algoritma
             Object[] ov1 = this.allVertices.ToArray();
             Array.Sort(ov1);
             Object[] ov2 = graphList.allVertices.ToArray();
@@ -456,7 +456,7 @@ namespace GraphStructure
                     return false;
             }
 
-            // Edges can contain duplicates and appear in different order but both arrays should contain the same elements
+            //İkiz bağlantılar için
             Object[] oe1 = this.allEdges.ToArray();
             Array.Sort(oe1);
             Object[] oe2 = graphList.allEdges.ToArray();
