@@ -322,7 +322,7 @@ namespace TreeAndHeaps
             removed = node.RemoveKey(key);
             if (node.NumberOfChildren() == 0)
             {
-                // leaf node
+                // Yaprak düğümler
                 if (node.parent != null && node.NumberOfKeys() < minKeySize)
                 {
                     this.Combined(node);
@@ -474,8 +474,7 @@ namespace TreeAndHeaps
             }
 
             if (node.parent == null)
-            {
-                // new root, height of tree is increased
+            {                
                 Node newRoot = new Node(null, maxKeySize, maxChildrenSize);
                 newRoot.AddKeyValue(medianValue,default);
                 node.parent = newRoot;
@@ -501,7 +500,7 @@ namespace TreeAndHeaps
             int keySize = node.NumberOfKeys();
             if (keySize > 1)
             {
-                // Make sure the keys are sorted
+                // Anahtarların sıralı olduğundan emin ol!
                 for (int i = 1; i < keySize; i++)
                 {
                     K p = node.GetKey(i - 1);
@@ -676,7 +675,7 @@ namespace TreeAndHeaps
                 }
                 else if (rightNeighbor != null && parent.NumberOfKeys() > 0)
                 {
-                    // Can't borrow from neighbors, try to combined with right neighbor
+                
                     K removeValue = rightNeighbor.GetKey(0);
                     int prev = GetIndexOfPreviousValue(parent, removeValue);
                     K parentValue = parent.RemoveKey(prev);
