@@ -20,12 +20,14 @@ namespace SortingAlgorithms
             array = new T[size];
             lastPosition = 0;
         }
+        
         public void Add(T value)  
         {
             array[lastPosition] = value; //Son indekse veri yerlestirilir
             TrickleUp(lastPosition);//Verinin konulan yere uygunluguna bakilir, uygun degilse Swap()'la degistirilir
             lastPosition++;
         }
+        
         public T[] Heapify_Max(T[] heapArray)
         {
             if(heapArray==null)
@@ -39,6 +41,7 @@ namespace SortingAlgorithms
 
             return heapArray;
         } // Heap Tree turunde olmayan siradan diziyi MaxHeap Dizi'ye donusturur.
+        
         public T[] Heapify_Min(T[] heapArray) // Heap Tree turunde olmayan siradan diziyi  MinHeap Dizi'ye donusturur.
         {
             if (heapArray == null)
@@ -53,6 +56,7 @@ namespace SortingAlgorithms
 
             return heapArray;
         }
+        
         private void TrickleUp(int position) //Uste dogru pozisyon degistirme, Cocuk'tan Ebeveyne(Child,Parent)
         {
             if (position == 0)
@@ -69,6 +73,7 @@ namespace SortingAlgorithms
             //Comparer<T> generic sinifina aittir, T : karsilastirilmak istenen veri tipi
             //Comparison metodu ustte belirtilen ifadeyi barindiran , islem kolayligi saglayan fonksiyondur.
         }
+        
         private void HeapifyTrickleUpMax(T[] heapArray,int position) //Uste dogru pozisyon degistirme, Cocuk'tan Ebeveyne(Child,Parent)
         {
             if (position == 0)
@@ -82,6 +87,7 @@ namespace SortingAlgorithms
             }
 
         }
+        
         private void HeapifyTrickleUpMin(T[] heapArray, int position) //Uste dogru pozisyon degistirme, Cocuk'tan Ebeveyne(Child,Parent)
         {
             if (position == 0)
@@ -95,18 +101,21 @@ namespace SortingAlgorithms
             }
 
         }
+        
         private void Swap(int a, int b) //Dizi bir nesne oldugu icin referans degerleri degistirilir.
         {
             T temp = array[a];
             array[a] = array[b];  
             array[b] = temp;
         }
+        
         private void HeapifySwap(T[] heapArray,int a, int b)
         {
             T temp = heapArray[a];
             heapArray[a] = heapArray[b];
             heapArray[b] = temp;
         }
+        
         public T Poll()  //0.Indeks nesnesini kaldirir.
         {
             T temp = array[0];
@@ -115,6 +124,16 @@ namespace SortingAlgorithms
             TrickleDown(0);   // Ebeveyn'den Cocuga dogru 0. indeksteki deger heap kurallarina uyumlu bir sekilde tasinir.
             return temp;
         }
+        
+        public T RemoveAt(int key)  //Breadh First Search yapidaki indeks secilir.
+        {
+            T temp = array[key];
+            Swap(key, lastPosition); 
+            lastPosition--;    //lastPosition-- azalilarak son pozisyondaki nesneye ait referans bosta kalir ve garbage collector tarafindan silinir.
+            TrickleDown(key);   // Ebeveyn'den Cocuga dogru key. indeksteki deger heap kurallarina uyumlu bir sekilde tasinir.
+            return temp;
+        }
+        
         private void TrickleDown(int parent)
         {
             int left = 2 * parent + 1;  //Ebeveyn'e ait sol indeks
@@ -149,10 +168,12 @@ namespace SortingAlgorithms
             }
 
         }
+        
         private int Comparison(T x,T y)
         {
             return Comparer<T>.Default.Compare(x, y);
         } //Generic yapidaki nesneleri karsilastirmak icin kullanilan metod. 
+        
         public T[] SortedHeapList()
         {
             int internalLastPosition = lastPosition;
