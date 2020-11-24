@@ -11,11 +11,11 @@ namespace SortingAlgorithms
 
     // Children: 2xParent + 1 , 2xParent +2 , Root = 0. index relationship
     // Parent  : Math.Floor((Position Of Child - 1)/2)    , Root=0. index relationship
-    class MyHeap<T>
+    class MyBianryHeap<T>
     {
         private  int lastPosition;    // Heap'in derinligi
         private  T[] array;
-        public MyHeap(int size) // Log2(size+1) - 1 = agacin belirlenen yuksekligi
+        public MyBianryHeap(int size) // Log2(size+1) - 1 = agacin belirlenen yuksekligi
         {
             array = new T[size];
             lastPosition = 0;
