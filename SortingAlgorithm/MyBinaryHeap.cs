@@ -129,7 +129,7 @@ namespace SortingAlgorithms
         {
             T temp = array[key];
             Swap(key, lastPosition); 
-            lastPosition--;    //lastPosition-- azalilarak son pozisyondaki nesneye ait referans bosta kalir ve garbage collector tarafindan silinir.
+            lastPosition--;    //lastPosition-- azalilarak son pozisyondaki nesneye ait referans bosta kalir.
             TrickleDown(key);   // Ebeveyn'den Cocuga dogru key. indeksteki deger heap kurallarina uyumlu bir sekilde tasinir.
             return temp;
         }
