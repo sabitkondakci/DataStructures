@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace SortingAlgorithms
@@ -11,7 +11,7 @@ namespace SortingAlgorithms
 
     // Children: 2xParent + 1 , 2xParent +2 , Root = 0. index relationship
     // Parent  : Math.Floor((Position Of Child - 1)/2)    , Root=0. index relationship
-    class MyHeap<T> 
+    class MyHeap<T>
     {
         private  int lastPosition;    // Heap'in derinligi
         private  T[] array;
@@ -20,7 +20,6 @@ namespace SortingAlgorithms
             array = new T[size];
             lastPosition = 0;
         }
-    
         public void Add(T value)  
         {
             array[lastPosition] = value; //Son indekse veri yerlestirilir
@@ -133,7 +132,7 @@ namespace SortingAlgorithms
                 return;
             }
 
-            if (left >= lastPosition || right >= lastPosition)
+            if (left > lastPosition || right > lastPosition)
             {
                 return;
             }
@@ -143,7 +142,7 @@ namespace SortingAlgorithms
                 Swap(parent, left);
                 TrickleDown(left);  //Metod tekrar cagrilarak islem tekrarlanir.
             }
-            else if (Comparison(array[parent], array[right]) < 0)
+            else 
             {
                 Swap(parent, right);
                 TrickleDown(right);
@@ -156,17 +155,15 @@ namespace SortingAlgorithms
         } //Generic yapidaki nesneleri karsilastirmak icin kullanilan metod. 
         public T[] SortedHeapList()
         {
-            T[] tempArray=new T[lastPosition];
-            for (int i = 0; i < lastPosition; i++)
+            int internalLastPosition = lastPosition;
+            T[] tempArray=new T[internalLastPosition];
+            for (int i = 0; i < internalLastPosition; i++)
             {
                 tempArray[i] = Remove();  //Tasarlanan heap MAXHEAP oldugundan, ilk deger her zaman en buyuktur.
-                if (i>=1&& Comparison(tempArray[i],tempArray[i-1])>0)
-                {
-                     Swap(i,i-1);
-                }
             }
 
             return tempArray;
         } // nlogn (log 2 tabaninda) zaman karmasasi olan SortedHeapList metodu
+
     }
 }
