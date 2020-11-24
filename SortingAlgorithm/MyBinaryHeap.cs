@@ -34,7 +34,7 @@ namespace SortingAlgorithms
         public T[] Heapify_Max(T[] heapArray)
         {
             if (heapArray == null)
-                throw new NullReferenceException($"Heapify_Max({typeof(T).Name}[] heapArray is null)");
+                throw new ArgumentNullException($"Heapify_Max({typeof(T).Name}[] heapArray is null)");
             int i = 0;
             while (i < heapArray.Length )
             {
@@ -47,7 +47,7 @@ namespace SortingAlgorithms
         public T[] Heapify_Min(T[] heapArray) // Heap Tree turunde olmayan siradan diziyi  MinHeap Dizi'ye donusturur.
         {
             if (heapArray == null)
-                throw new NullReferenceException($"Heapify_Min({typeof(T).Name}[] heapArray is null)");
+                throw new ArgumentNullException($"Heapify_Min({typeof(T).Name}[] heapArray is null)");
 
             int i = 0;
             while (i < heapArray.Length)
@@ -77,7 +77,7 @@ namespace SortingAlgorithms
         private void HeapifyTrickleUpMax(T[] heapArray,int position) //Uste dogru pozisyon degistirme, Cocuk'tan Ebeveyne(Child,Parent)
         {
             if (heapArray == null)
-                throw new NullReferenceException($"HeapifyTrickleUpMax({typeof(T).Name}[] heapArray is null)");
+                throw new ArgumentNullException($"HeapifyTrickleUpMax({typeof(T).Name}[] heapArray is null)");
 
             if (position == 0)
                 return;
@@ -93,7 +93,7 @@ namespace SortingAlgorithms
         private void HeapifyTrickleUpMin(T[] heapArray, int position) //Uste dogru pozisyon degistirme, Cocuk'tan Ebeveyne(Child,Parent)
         {
             if (heapArray == null)
-                throw new NullReferenceException($"HeapifyTrickleUpMin({typeof(T).Name}[] heapArray is null)");
+                throw new ArgumentNullException($"HeapifyTrickleUpMin({typeof(T).Name}[] heapArray is null)");
 
             if (position == 0)
                 return;
@@ -115,7 +115,7 @@ namespace SortingAlgorithms
         private void HeapifySwap(T[] heapArray,int a, int b)
         {
             if (heapArray == null)
-                throw new NullReferenceException($"HeapifySwap({typeof(T).Name}[] heapArray is null)");
+                throw new ArgumentNullException($"HeapifySwap({typeof(T).Name}[] heapArray is null)");
 
             T temp = heapArray[a];
             heapArray[a] = heapArray[b];
