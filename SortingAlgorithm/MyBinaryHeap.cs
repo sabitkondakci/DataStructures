@@ -107,7 +107,7 @@ namespace SortingAlgorithms
             heapArray[a] = heapArray[b];
             heapArray[b] = temp;
         }
-        public T Remove()  //0.Indeks nesnesini kaldirir.
+        public T Poll()  //0.Indeks nesnesini kaldirir.
         {
             T temp = array[0];
             Swap(0, lastPosition); // Kaldirma islemi 0. indeksteki sayi son indekse tasinarak yapilir
@@ -159,7 +159,7 @@ namespace SortingAlgorithms
             T[] tempArray=new T[internalLastPosition];
             for (int i = 0; i < internalLastPosition; i++)
             {
-                tempArray[i] = Remove();  //Tasarlanan heap MAXHEAP oldugundan, ilk deger her zaman en buyuktur.
+                tempArray[i] = Poll();  //Tasarlanan heap MAXHEAP oldugundan, ilk deger her zaman en buyuktur.
             }
 
             return tempArray;
