@@ -118,11 +118,7 @@ namespace SortingAlgorithms
         
         public T Poll()  //0.Indeks nesnesini kaldirir.
         {
-            T temp = array[0];
-            Swap(0, lastPosition); // Kaldirma islemi 0. indeksteki sayi son indekse tasinarak yapilir
-            lastPosition--;    //lastPosition-- azalilarak son pozisyondaki nesneye ait referans bosta kalir.
-            TrickleDown(0);   // Ebeveyn'den Cocuga dogru 0. indeksteki deger heap kurallarina uyumlu bir sekilde tasinir.
-            return temp;
+            return RemoveAt(0);
         }
         
         public T RemoveAt(int key)  //Breadh First Search yapidaki indeks secilir.
