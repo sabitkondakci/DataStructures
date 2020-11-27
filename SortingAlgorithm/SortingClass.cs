@@ -20,7 +20,6 @@ namespace SortingAlgorithms
         //-Quick Sort is non stable and in place-
         //Radix Sort O(n) time complexity   very slow!
         //Heap Sort O(nlogn) time complexity - non stable , in place-
-        
         public void InsertionSort(K[] array) //Sıralanmış listelerde indeks bozulmalarını düzeltmede etkili bir yöntemdir.
         {
             if (array == null)
@@ -41,7 +40,6 @@ namespace SortingAlgorithms
                 }
             }
         }
-        
         public K[] InsertionSortParams(params K[] array)
         {
             if (array == null)
@@ -64,7 +62,6 @@ namespace SortingAlgorithms
 
             return array;
         }
-        
         public K BinarySearch(K value, params K[] array)
         {
             if (array == null)
@@ -95,7 +92,6 @@ namespace SortingAlgorithms
             return default;
 
         }
-        
         public void BubbleSort(params K[] array)
         {
             if (array == null)
@@ -118,7 +114,6 @@ namespace SortingAlgorithms
 
             
         }//O(n^2) worst case time complexity
-
         public void ShellSort(K[] array)
         {
             if (array == null)
@@ -143,22 +138,23 @@ namespace SortingAlgorithms
                 }
             }
         }
-        
-        public void QuickSort(K[] arr, int left_index, int right_index)
+        public void QuickSort(K[] arr, int leftIndex, int rightIndex)
         {
+            // K[] arr: Due to the fact that array is a bunch of pointers,
+            // you may pass it as a parameter to change pointers' positions
             if (arr == null)
                 throw new ArgumentNullException("array");
 
             K pivot;
             int left, right;
-            if (left_index >= right_index) return;
+            if (leftIndex >= rightIndex) return;
 
-            left = left_index;
-            right = right_index;
+            left = leftIndex;
+            right = rightIndex;
 
-            pivot = arr[(left_index + right_index) / 2];
+            pivot = arr[(left + right) / 2];
 
-            while (left <= right)
+            while (left < right)
             {
                 while (arr[left].CompareTo(pivot) < 0) left++;
                 while (arr[right].CompareTo(pivot) > 0) right--;
@@ -171,11 +167,10 @@ namespace SortingAlgorithms
                 }
             }
 
-            QuickSort(arr, left_index, right);
-            QuickSort(arr, left, right_index);
+            QuickSort(arr, leftIndex, right);
+            QuickSort(arr, left, rightIndex);
 
         }
-        
         public K[] MWaySortedMerging(K[] firstArray,K[] secondArray)
         {
             if(firstArray==null || secondArray==null)
@@ -205,25 +200,26 @@ namespace SortingAlgorithms
 
             if (i == firstArray.Length)
             {
-                for (int l = j; l < secondArray.Length; l++)
+                while (j<secondArray.Length)
                 {
-                    fetchArray[k] = secondArray[l];
+                    fetchArray[k] = secondArray[j];
+                    j++;
                     k++;
                 }
             }
             else 
             {
-                for (int t = i; t < firstArray.Length; t++)
+                while (i<firstArray.Length)
                 {
-                    fetchArray[k] = firstArray[t];
+                    fetchArray[k] = firstArray[i];
                     k++;
+                    i++;
                 }
             }
 
             return fetchArray;
 
         }
-        
         public K[] MWaySortedMergingGeneric(IEnumerable<K> firstArray, IEnumerable<K> secondArray)
         {
             if (firstArray == null || secondArray == null)
@@ -253,39 +249,40 @@ namespace SortingAlgorithms
 
             if (i == firstArray.Count())
             {
-                for (int l = j; l < secondArray.Count(); l++)
+                while (j < secondArray.Count())
                 {
-                    fetchArray[k] = secondArray.ElementAt(l);
+                    fetchArray[k] = secondArray.ElementAt(j);
+                    j++;
                     k++;
                 }
             }
             else
             {
-                for (int t = i; t < firstArray.Count(); t++)
+                while (i < firstArray.Count())
                 {
-                    fetchArray[k] = firstArray.ElementAt(t);
+                    fetchArray[k] = firstArray.ElementAt(i);
                     k++;
+                    i++;
                 }
             }
 
             return fetchArray;
 
         }
-        
-        public void MergeSort(K[] arr, int lower_bound, int upper_bound)
+        public void MergeSort(K[] arr, int lowerBound, int upperBound)//O(m+n) time complexity at worst case
         {
+            //Best case time complexity O(nlogn)
             if (arr == null)
                 throw new ArgumentNullException("array");
 
-            if (lower_bound < upper_bound)
+            if (lowerBound < upperBound)
             {
-                int midIndex = (lower_bound + upper_bound) / 2;
-                MergeSort(arr, lower_bound, midIndex);
-                MergeSort(arr, midIndex + 1, upper_bound);
-                Merge(arr, lower_bound, midIndex, upper_bound);
+                int midIndex = (lowerBound + upperBound) / 2;
+                MergeSort(arr, lowerBound, midIndex);
+                MergeSort(arr, midIndex + 1, upperBound);
+                Merge(arr, lowerBound, midIndex, upperBound);
             }
         }
-        
         private void Merge(K[] arr, int lowerBound, int midIndex, int upperBound)
         {
             int i = lowerBound, j = midIndex + 1, k = lowerBound;
@@ -331,7 +328,6 @@ namespace SortingAlgorithms
                 arr[t] = tempArr[t];
             }
         }
-        
         private void SwapSort(int x, int y, K[] array)
         {
             if (array == null)
