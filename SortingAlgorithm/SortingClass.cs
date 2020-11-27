@@ -161,9 +161,7 @@ namespace SortingAlgorithms
 
                 if (left <= right)
                 {
-                    SwapSort(left, right, arr);
-                    left++;
-                    right--;
+                    SwapSort(left++, right--, arr);
                 }
             }
 
@@ -186,83 +184,26 @@ namespace SortingAlgorithms
             {
                 if (firstArray[i].CompareTo(secondArray[j])>0)
                 {
-                    fetchArray[k] = secondArray[j];
-                    j++;
+                    fetchArray[k++] = secondArray[j++];
                 }
                 else
                 {
-                    fetchArray[k] = firstArray[i];
-                    i++;
+                    fetchArray[k++] = firstArray[i++];
                 }
-
-                k++;
             }
 
             if (i == firstArray.Length)
             {
                 while (j<secondArray.Length)
                 {
-                    fetchArray[k] = secondArray[j];
-                    j++;
-                    k++;
+                    fetchArray[k++] = secondArray[j++];
                 }
             }
             else 
             {
                 while (i<firstArray.Length)
                 {
-                    fetchArray[k] = firstArray[i];
-                    k++;
-                    i++;
-                }
-            }
-
-            return fetchArray;
-
-        }
-        public K[] MWaySortedMergingGeneric(IEnumerable<K> firstArray, IEnumerable<K> secondArray)
-        {
-            if (firstArray == null || secondArray == null)
-                throw new ArgumentNullException("firstArray or secondArray is null");
-
-            Array.Sort(firstArray.ToArray());
-            Array.Sort(secondArray.ToArray());
-
-            K[] fetchArray = new K[firstArray.Count() + secondArray.Count()];
-            int i = 0, j = 0, k = 0;
-
-            while (i < firstArray.Count() && j < secondArray.Count())
-            {
-                if (firstArray.ElementAt(i).CompareTo(secondArray.ElementAt(j)) > 0)
-                {
-                    fetchArray[k] = secondArray.ElementAt(j);
-                    j++;
-                }
-                else
-                {
-                    fetchArray[k] = firstArray.ElementAt(i);
-                    i++;
-                }
-
-                k++;
-            }
-
-            if (i == firstArray.Count())
-            {
-                while (j < secondArray.Count())
-                {
-                    fetchArray[k] = secondArray.ElementAt(j);
-                    j++;
-                    k++;
-                }
-            }
-            else
-            {
-                while (i < firstArray.Count())
-                {
-                    fetchArray[k] = firstArray.ElementAt(i);
-                    k++;
-                    i++;
+                    fetchArray[k++] = firstArray[i++];
                 }
             }
 
@@ -292,34 +233,26 @@ namespace SortingAlgorithms
             {
                 if (arr[i].CompareTo(arr[j]) <= 0)
                 {
-                    tempArr[k] = arr[i];
-                    i++;
+                    tempArr[k++] = arr[i++];
                 }
                 else
                 {
-                    tempArr[k] = arr[j];
-                    j++;
+                    tempArr[k++] = arr[j++];
                 }
-
-                k++;
             }
 
             if (i > midIndex)
             {
                 while (j <= upperBound)
                 {
-                    tempArr[k] = arr[j];
-                    j++;
-                    k++;
+                    tempArr[k++] = arr[j++];
                 }
             }
             else
             {
                 while (i <= midIndex)
                 {
-                    tempArr[k] = arr[i];
-                    i++;
-                    k++;
+                    tempArr[k++] = arr[i++];
                 }
             }
 
