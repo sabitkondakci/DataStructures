@@ -20,6 +20,7 @@ namespace SortingAlgorithms
         //-Quick Sort is non stable and in place-
         //Radix Sort O(n) time complexity   very slow!
         //Heap Sort O(nlogn) time complexity - non stable , in place-
+        
         public void InsertionSort(K[] array) //Sıralanmış listelerde indeks bozulmalarını düzeltmede etkili bir yöntemdir.
         {
             if (array == null)
@@ -40,6 +41,7 @@ namespace SortingAlgorithms
                 }
             }
         }
+        
         public K[] InsertionSortParams(params K[] array)
         {
             if (array == null)
@@ -62,6 +64,7 @@ namespace SortingAlgorithms
 
             return array;
         }
+        
         public K BinarySearch(K value, params K[] array)
         {
             if (array == null)
@@ -92,6 +95,7 @@ namespace SortingAlgorithms
             return default;
 
         }
+        
         public void BubbleSort(params K[] array)
         {
             if (array == null)
@@ -139,6 +143,7 @@ namespace SortingAlgorithms
                 }
             }
         }
+        
         public void QuickSort(K[] arr, int left_index, int right_index)
         {
             if (arr == null)
@@ -170,6 +175,103 @@ namespace SortingAlgorithms
             QuickSort(arr, left, right_index);
 
         }
+        
+        public K[] MWayMergingSort(K[] firstArray,K[] secondArray)
+        {
+            if(firstArray==null || secondArray==null)
+                throw new ArgumentNullException("firstArray or secondArray is null");
+
+            Array.Sort(firstArray);
+            Array.Sort(secondArray);
+
+            K[] fetchArray=new K[firstArray.Length+secondArray.Length];
+            int i = 0, j = 0, k = 0;
+
+            while (i<firstArray.Length && j<secondArray.Length)
+            {
+                if (firstArray[i].CompareTo(secondArray[j])>0)
+                {
+                    fetchArray[k] = secondArray[j];
+                    j++;
+                }
+                else
+                {
+                    fetchArray[k] = firstArray[i];
+                    i++;
+                }
+
+                k++;
+            }
+
+            if (i == firstArray.Length)
+            {
+                for (int l = j; l < secondArray.Length; l++)
+                {
+                    fetchArray[k] = secondArray[l];
+                    k++;
+                }
+            }
+            else 
+            {
+                for (int t = i; t < firstArray.Length; t++)
+                {
+                    fetchArray[k] = firstArray[t];
+                    k++;
+                }
+            }
+
+            return fetchArray;
+
+        }
+        
+        public K[] MWayMergingSortGeneric(IEnumerable<K> firstArray, IEnumerable<K> secondArray)
+        {
+            if (firstArray == null || secondArray == null)
+                throw new ArgumentNullException("firstArray or secondArray is null");
+
+            Array.Sort(firstArray.ToArray());
+            Array.Sort(secondArray.ToArray());
+
+            K[] fetchArray = new K[firstArray.Count() + secondArray.Count()];
+            int i = 0, j = 0, k = 0;
+
+            while (i < firstArray.Count() && j < secondArray.Count())
+            {
+                if (firstArray.ElementAt(i).CompareTo(secondArray.ElementAt(j)) > 0)
+                {
+                    fetchArray[k] = secondArray.ElementAt(j);
+                    j++;
+                }
+                else
+                {
+                    fetchArray[k] = firstArray.ElementAt(i);
+                    i++;
+                }
+
+                k++;
+            }
+
+            if (i == firstArray.Count())
+            {
+                for (int l = j; l < secondArray.Count(); l++)
+                {
+                    fetchArray[k] = secondArray.ElementAt(l);
+                    k++;
+                }
+            }
+            else
+            {
+                for (int t = i; t < firstArray.Count(); t++)
+                {
+                    fetchArray[k] = firstArray.ElementAt(t);
+                    k++;
+                }
+            }
+
+            return fetchArray;
+
+        }
+        
         public void MergeSort(K[] arr, int lower_bound, int upper_bound)
         {
             if (arr == null)
@@ -183,6 +285,7 @@ namespace SortingAlgorithms
                 Merge(arr, lower_bound, midIndex, upper_bound);
             }
         }
+        
         private void Merge(K[] arr, int lowerBound, int midIndex, int upperBound)
         {
             int i = lowerBound, j = midIndex + 1, k = lowerBound;
@@ -228,6 +331,7 @@ namespace SortingAlgorithms
                 arr[t] = tempArr[t];
             }
         }
+        
         private void SwapSort(int x, int y, K[] array)
         {
             if (array == null)
