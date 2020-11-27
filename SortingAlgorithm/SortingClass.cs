@@ -176,7 +176,7 @@ namespace SortingAlgorithms
 
         }
         
-        public K[] MWayMergingSort(K[] firstArray,K[] secondArray)
+        public K[] MWaySortedMerging(K[] firstArray,K[] secondArray)
         {
             if(firstArray==null || secondArray==null)
                 throw new ArgumentNullException("firstArray or secondArray is null");
@@ -224,7 +224,7 @@ namespace SortingAlgorithms
 
         }
         
-        public K[] MWayMergingSortGeneric(IEnumerable<K> firstArray, IEnumerable<K> secondArray)
+        public K[] MWaySortedMergingGeneric(IEnumerable<K> firstArray, IEnumerable<K> secondArray)
         {
             if (firstArray == null || secondArray == null)
                 throw new ArgumentNullException("firstArray or secondArray is null");
