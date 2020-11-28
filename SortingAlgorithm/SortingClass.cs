@@ -220,7 +220,7 @@ namespace SortingAlgorithms
         //Merging the elements of jaggedArray
         public K[] MultipleMerging(K[][] jaggedArray)
         {
-            if(jaggedArray==null || jaggedArray.Length <= 1)
+            if(jaggedArray==null || jaggedArray.Length == 1)
                     throw new ArgumentNullException("jaggedArray parameter is null or jaggedArray has single/zero element");
                     
             int lastRepeat = jaggedArray.Length;
