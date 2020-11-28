@@ -225,7 +225,7 @@ namespace SortingAlgorithms
                     
             int lastRepeat = jaggedArray.Length;
             //For the sake of maksimum performance we should sort the jaggedArray on the basis of objects' Length
-            K[][] sortedJaggedList=jaggedArray.OrderBy(x => x.Length).ToArray();
+            K[][] sortedJaggedList=jaggedArray.OrderBy(x => x?.Length).ToArray();
             K[] tempReturn=sortedJaggedList[0];
 
             for (int i = 1; i < lastRepeat; i++)
