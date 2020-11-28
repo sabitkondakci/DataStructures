@@ -20,6 +20,7 @@ namespace SortingAlgorithms
         //-Quick Sort is non stable and in place-
         //Radix Sort O(n) time complexity   very slow!
         //Heap Sort O(nlogn) time complexity - non stable , in place-
+        
         public void InsertionSort(K[] array) //Sıralanmış listelerde indeks bozulmalarını düzeltmede etkili bir yöntemdir.
         {
             if (array == null)
@@ -40,6 +41,7 @@ namespace SortingAlgorithms
                 }
             }
         }
+        
         public K[] InsertionSortParams(params K[] array)
         {
             if (array == null)
@@ -62,6 +64,7 @@ namespace SortingAlgorithms
 
             return array;
         }
+        
         public K BinarySearch(K value, params K[] array)
         {
             if (array == null)
@@ -92,6 +95,7 @@ namespace SortingAlgorithms
             return default;
 
         }
+       
         public void BubbleSort(params K[] array)
         {
             if (array == null)
@@ -114,6 +118,7 @@ namespace SortingAlgorithms
 
             
         }//O(n^2) worst case time complexity
+        
         public void ShellSort(K[] array)
         {
             if (array == null)
@@ -138,6 +143,7 @@ namespace SortingAlgorithms
                 }
             }
         }
+        
         public void QuickSort(K[] arr, int leftIndex, int rightIndex)
         {
             // K[] arr: Due to the fact that array is a bunch of pointers,
@@ -169,6 +175,7 @@ namespace SortingAlgorithms
             QuickSort(arr, left, rightIndex);
 
         }
+        
         public K[] MWaySortedMerging(K[] firstArray,K[] secondArray)
         {
             if(firstArray==null || secondArray==null)
@@ -210,6 +217,22 @@ namespace SortingAlgorithms
             return fetchArray;
 
         }
+        //Merging the elements of jaggedArray
+        public K[] MultipleMerging(K[][] jaggedArray)
+        {
+            int lastRepeat = jaggedArray.Length;
+            //For the sake of maksimum performance we should sort the jaggedArray on the basis of objects' Length
+            K[][] sortedJaggedList=jaggedArray.OrderBy(x => x.Length).ToArray();
+            K[] tempReturn=sortedJaggedList[0];
+
+            for (int i = 1; i < lastRepeat; i++)
+            {
+                tempReturn = MWaySortedMerging(tempReturn, sortedJaggedList[i]);
+            }
+
+            return tempReturn;
+        }
+        
         public void MergeSort(K[] arr, int lowerBound, int upperBound)//O(m+n) time complexity at worst case
         {
             //Best case time complexity O(nlogn)
@@ -224,6 +247,7 @@ namespace SortingAlgorithms
                 Merge(arr, lowerBound, midIndex, upperBound);
             }
         }
+        
         private void Merge(K[] arr, int lowerBound, int midIndex, int upperBound)
         {
             int i = lowerBound, j = midIndex + 1, k = lowerBound;
@@ -261,6 +285,7 @@ namespace SortingAlgorithms
                 arr[t] = tempArr[t];
             }
         }
+        
         private void SwapSort(int x, int y, K[] array)
         {
             if (array == null)
