@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyStackAndQueueInfixPrefixExamples
 {
-    class MyDynamicQueue<T> 
+    class MyDynamicQueue<T> where T:IComparable<T>,IEquatable<T>
     {
         private int size;
         private Node head;
@@ -50,25 +50,46 @@ namespace MyStackAndQueueInfixPrefixExamples
 
         public T Dequeue()
         {
-            Node tempNode = head;
-            if (size>1)
+            if (!IsEmpty())
             {
-                head = head.next;
-                size--;
-            }
-            else if(head==tail)
-            {
-                head = tail = null;
-                size = 0;
+                Node tempNode = head;
+                if (size > 1)
+                {
+                    head = head.next;
+                    size--;
+                }
+                else if (head == tail)
+                {
+                    head = tail = null;
+                    size = 0;
+                }
+
+                return tempNode.data; 
             }
 
-            return tempNode.data;
+            return default;
         }
 
         public T Peek() => head!=null?head.data:default;
 
         public T GetLast() => tail!=null?tail.data:default;
-      
+
+        public bool Contains(T element)
+        {
+            if (!IsEmpty())
+            {
+                Node traverse = head;
+                while (traverse!=null)
+                {
+                    if (traverse.data.CompareTo(element) == 0)
+                        return true;
+
+                    traverse = traverse.next;
+                }
+            }
+
+            return false;
+        }
         public bool IsEmpty() => size == 0;
         public int Size() => size;
 
