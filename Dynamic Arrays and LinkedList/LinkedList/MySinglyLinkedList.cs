@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SinglyDoublyLinkedLists
 {
     class MySinglyLinkedList<T>: ILinkedList<T> 
-    where T : IEquatable<T>,IComparable<T>,IComparable
+    where T : IEquatable<T>,IComparable<T>
     {
         private int size ;
         private Node head;
@@ -91,9 +91,11 @@ namespace SinglyDoublyLinkedLists
                 return default;
             }
 
+            T data;
+
             if (head==tail)  //Listenin tek elemanli oldugu durumun kontrolu.
             {
-                T data = head.data;
+                data = head.data;
                 head = tail = null;
                 size--;
                 return data;
@@ -106,13 +108,16 @@ namespace SinglyDoublyLinkedLists
                 current = current.next; //Ilk durumda previous=null , son durumda current.next=null
             }
 
+            data = current.data;
             previous.next = null;    //previous=current isleminden sonra, previous.next=null yapilir
             tail = previous;         //previous son listedeki son eleman oldugundan tail e atama yapilir.
             size--;
-            return current.data;
+            return data;
         }
         public T Remove(T element)
         {
+            T data;
+
             if (IsEmpty())
                 return default;
 
@@ -131,9 +136,10 @@ namespace SinglyDoublyLinkedLists
                         return RemoveLast();
                     }
 
+                    data = current.data;
                     previous.next = current.next; // Aranan nesnenin referans degeri takip eden ifadenin referans degerine aktarilir
                     size--;
-                    return current.data;
+                    return data;
                 }
 
                 previous = current;      //Previous ve Current pointerlarla senkronize arama yapilir.
@@ -158,11 +164,8 @@ namespace SinglyDoublyLinkedLists
             head = prevNode;
             tail = tempHead;
         }
-
         public T PeekFirst() => head == null ? default : head.data;
-
         public T PeekLast() => tail == null ? default : tail.data;
-
         public T GetValueAtPosition(int position)
         {
             if (head == null)
