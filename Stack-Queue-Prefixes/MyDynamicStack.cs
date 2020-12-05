@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyStackAndQueueInfixPrefixExamples
 {
-    class MyDynamicStack<T> 
+    class MyDynamicStack<T> where T:IComparable<T>,IEquatable<T>
     {
         private int size;
         private Node head;
@@ -64,6 +65,23 @@ namespace MyStackAndQueueInfixPrefixExamples
         }
         public T Peek() => head == null ? default : head.data;
         public bool IsEmpty() => size == 0;
+
+        public bool Contains(T element)
+        {
+            if (!IsEmpty())
+            {
+                Node traverse = head;
+                while (traverse != null)
+                {
+                    if (traverse.data.CompareTo(element) == 0)
+                        return true;
+
+                    traverse = traverse.next;
+                } 
+            }
+
+            return false;
+        }
         public int Size() => size;
         public void Display()   
         {
