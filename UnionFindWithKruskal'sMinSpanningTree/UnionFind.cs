@@ -32,6 +32,7 @@ namespace UnionFindOperation
             //if there's no connection create one!
             if (edges[a, b].Key == 0 && edges[a, b].Value == 0)
             {
+                //a unique hashCode is generated for every new edge , so that it has an identity for that edge
                 var guid = Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "");
                 int hashCode = guid.GetHashCode();
 
