@@ -50,12 +50,12 @@ namespace TreeAndHeaps
     //   / \   / \
     //  o   o o   o
 
-    class MyBinaryTree<T> where T:IEquatable<T>,IComparable<T>
+    class MyBinarySearchTree<T> where T:IEquatable<T>,IComparable<T>
     {
         private List<T> tempList;
         private int size;
         private Node root;
-        public MyBinaryTree()
+        public MyBinarySearchTree()
         {
             size = 0;
             root = null;
