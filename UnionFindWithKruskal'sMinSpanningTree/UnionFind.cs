@@ -16,7 +16,6 @@ namespace UnionFindOperation
         //I used a 2D array to store edges and their weights
         //Each element of array takes KeyValuePair object; key: edge identity , value:weight
         private KeyValuePair<int, double>[,] edges;
-        private SortedDictionary<double, KeyValuePair<int, int>> kruskaDictionary;
 
         //   0 ,  1,  2, 3,  4, 5
         //  [h1, h1, h1, 0, h3, h3 ]  =>unionArray h1,h2,h3 stored hashCodes which gives the edges unique identities
