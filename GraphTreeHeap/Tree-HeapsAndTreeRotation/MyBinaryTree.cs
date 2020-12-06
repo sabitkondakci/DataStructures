@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Linq;
@@ -6,6 +6,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CSharp.DataStructures.RootedTreeSpace;
 
 namespace TreeAndHeaps
 {
@@ -51,12 +52,14 @@ namespace TreeAndHeaps
 
     class MyBinaryTree<T> where T:IEquatable<T>,IComparable<T>
     {
+        private List<T> tempList;
         private int size;
         private Node root;
         public MyBinaryTree()
         {
             size = 0;
             root = null;
+            tempList=new List<T>();
         }
         private class Node
         {
@@ -72,7 +75,7 @@ namespace TreeAndHeaps
             }
 
         }
-        public void Insert(T data)
+        public void Add(T data)
         {
             if (root==null)
             {
@@ -82,7 +85,7 @@ namespace TreeAndHeaps
             {
                 //Girilen değer BST formatına uygun olarak ağaca yerleştirilir
                 //Özçağrılı (Recursive) işlem başlatılır.
-                CheckInsert(data,root);
+                CheckAdd(data,root);
             }
 
             size++;
@@ -119,6 +122,78 @@ namespace TreeAndHeaps
         public int Size() => size;
         public bool IsEmpty() => size == 0;
         public bool Contains(T data) => CheckContains(data, root);
+
+        //PreOrder: node, left ,right
+        public List<T> PreOrderTraversal()
+        {
+            List<T> volatileList = new List<T>();
+            PreTrav(root);
+
+            foreach (var num in tempList)
+            {
+                volatileList.Add(num);
+            }
+
+            tempList.Clear();
+            return volatileList;
+        }
+        //PostOrder: left, right, node
+        public List<T> PostOrderTraversal()
+        {
+            List<T> volatileList = new List<T>();
+            PostTrav(root);
+
+            foreach (var num in tempList)
+            {
+                volatileList.Add(num);
+            }
+
+            tempList.Clear();
+            return volatileList;
+        }
+        //InOrder: left, node, right
+        public List<T> InOrderTraversal()
+        {
+            List<T> volatileList = new List<T>();
+            InOrdTrav(root);
+
+            foreach (var num in tempList)
+            {
+                volatileList.Add(num);
+            }
+
+            tempList.Clear();
+            return volatileList;
+        }
+        private void PreTrav(Node rootNode)
+        {
+            if (rootNode == null)
+                return;
+
+            tempList.Add(rootNode.data);
+            PreTrav(rootNode.left);
+            PreTrav(rootNode.right);
+
+        }
+        private void PostTrav(Node rootNode)
+        {
+            if (rootNode == null)
+                return;
+
+            PostTrav(rootNode.left);
+            PostTrav(rootNode.right);
+            tempList.Add(rootNode.data);
+        }
+        private void InOrdTrav(Node rootNode)
+        {
+            if (rootNode == null)
+                return;
+
+            InOrdTrav(rootNode.left);
+            tempList.Add(rootNode.data);
+            InOrdTrav(rootNode.right);
+
+        }
         private Node CheckRemove(T data, Node rootNode)
         {
             if (rootNode == null)
@@ -165,7 +240,7 @@ namespace TreeAndHeaps
             }
             return minValue;
         }
-        private void CheckInsert(T data,Node rootNode)
+        private void CheckAdd(T data,Node rootNode)
         {
             //Girilen değer merkez(root) değerden büyükse ifade sağ tarafa alınır
             if (data.CompareTo(rootNode.data)>0)
@@ -175,7 +250,7 @@ namespace TreeAndHeaps
                     rootNode.right=new Node(data);
                     return;
                 }
-                CheckInsert(data,rootNode.right);
+                CheckAdd(data,rootNode.right);
             }
             else //Girilen ifade merkez,kök değerinden küçük veya eşitse 
             {
@@ -184,7 +259,7 @@ namespace TreeAndHeaps
                     rootNode.left=new Node(data);
                     return;
                 }
-                CheckInsert(data,rootNode.left);
+                CheckAdd(data,rootNode.left);
             }
         }
         private bool CheckContains(T data,Node node)
