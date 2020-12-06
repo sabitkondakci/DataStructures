@@ -90,9 +90,7 @@ namespace UnionFindOperation
 
             return false;
         }
-        //Find method checks whether an endge belongs to a subgroup or not
-        //this also prevents cycles
-
+        //Find method checks whether an edge belongs to a subgroup or not
         //method solves kruska's minimum spanning tree problem 
         //it returns KeyValuePair which stands for nodes
         public List<KeyValuePair<int,int>> KruskaMinSpanningTree()
