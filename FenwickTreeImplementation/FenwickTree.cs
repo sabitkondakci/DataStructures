@@ -30,7 +30,7 @@ namespace FenwickTreeImplementation
                     fenwickTree[j] = (dynamic)fenwickTree[j] + fenwickTree[i];
             }
         }
-        // Sum between range [1,index]
+        // Sum between range [1,index] , both inclusive
         //index starts from 1!
         public T PrefixSum(int index)
         {
@@ -46,7 +46,7 @@ namespace FenwickTreeImplementation
 
             return resultSum;
         }
-        //Sum between range [i,j]
+        //Sum between range [i,j] , both inclusive
         //index starts from 1!
         public T RangeSum(int i, int j) => (dynamic)PrefixSum(j) - PrefixSum(i - 1);
 
