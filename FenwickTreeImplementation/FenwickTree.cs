@@ -23,7 +23,7 @@ namespace FenwickTreeImplementation
         private void CreateFenwickTree(T[] fenwickTree)
         {
             int N = fenwickTree.Length;
-            for (int i = 0; i < N; i++)
+            for (int i = 1; i < N; i++)
             {
                 int j = i + LSB(i);
                 if (j < N)
