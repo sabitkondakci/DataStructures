@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -187,7 +187,6 @@ namespace TreeAndHeaps
         }
         private Node CheckRemove(K key, Node rootNode)
         {
-            Node testNode;
             if (rootNode == null)
             {
                 return rootNode;
@@ -195,14 +194,10 @@ namespace TreeAndHeaps
             else if (key.CompareTo(rootNode.data) < 0)
             {
                 rootNode.left = CheckRemove(key, rootNode.left);
-                testNode = rootNode.left?.parent;
-                testNode = rootNode;
             }
             else if (key.CompareTo(rootNode.data) > 0)
             {
                 rootNode.right = CheckRemove(key, rootNode.right);
-                testNode = rootNode.right?.parent;
-                testNode = rootNode;
             }
             else
             {
