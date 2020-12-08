@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -105,7 +105,6 @@ namespace TreeAndHeaps
         }
         private Node CheckRemove(T key, Node rootNode)
         {
-            Node testNode;
             if (rootNode == null)
             {
                 return rootNode;
@@ -113,14 +112,10 @@ namespace TreeAndHeaps
             else if (key.CompareTo(rootNode.data) < 0)
             {
                 rootNode.left = CheckRemove(key, rootNode.left);
-                testNode = rootNode.left?.parent;
-                testNode = rootNode;
             }
             else if (key.CompareTo(rootNode.data) > 0)
             {
                 rootNode.right = CheckRemove(key, rootNode.right);
-                testNode = rootNode.right?.parent;
-                testNode = rootNode;
             }
             else
             {
@@ -146,14 +141,14 @@ namespace TreeAndHeaps
         private T MaxValueCheck(Node rootNode)
         {
 
-            T minValue = rootNode.data;
+            T maxValue = rootNode.data;
             //Belirlenen düğümün sağ kısmı taranır
             while (rootNode.right != null)
             {
-                minValue = rootNode.right.data;
+                maxValue = rootNode.right.data;
                 rootNode = rootNode.right;
             }
-            return minValue;
+            return maxValue;
         }
         private bool ContainCheck(T element, Node node)
         {
