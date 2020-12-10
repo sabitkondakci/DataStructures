@@ -246,25 +246,12 @@ namespace TreeAndHeaps
         }
         private int Height(Node node)
         {
-            int leftHeight = 0, rightHeight = 0;
             if (node == null)
-            {
+                return -1;
+            if (node.left == null && node.right == null)
                 return 0;
-            }
 
-            if (node != null)
-            {
-                leftHeight = Height(node.left) + 1;
-                rightHeight = Height(node.right) + 1;
-            }
-
-            if (leftHeight > rightHeight)
-            {
-                return leftHeight;
-            }
-
-            return rightHeight;
-
+            return Math.Max(Height(node.left), Height(node.right)) + 1;
         }
         #region PrintMethod
         private static class TreePrinter
