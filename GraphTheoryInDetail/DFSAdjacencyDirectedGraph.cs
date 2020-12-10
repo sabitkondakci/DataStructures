@@ -14,7 +14,7 @@ namespace GraphTheoryInDetail
     class DFSAdjacencyDirectedGraph
     {
         //an adjacency list, which is a dictionary basically
-        //key is the edge and List<Edges> is a list store connections from key
+        //key is the vertice and List<Edges> is a list store connections from key
         //[key:1,value:[new Edges(toEdge,cost),new Edges(toEdge,cost) ... ]] and such
         private Dictionary<int, List<Edges>> myGraphDictionary;
         public DFSAdjacencyDirectedGraph()
