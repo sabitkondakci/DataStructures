@@ -11,7 +11,7 @@ namespace GraphTheoryInDetail
     class BFSAdjacencyDirectedGraph
     {
         //an adjacency list, which is a dictionary basically
-        //key is the edge and List<Edges> is a list store connections from key
+        //key is the vertice and List<Edges> is a list store connections from key to 
         //[key:1,value:[new Edges(toEdge,cost),new Edges(toEdge,cost) ... ]] and such
         private Dictionary<int, List<Edges>> myGraphDictionary;
         public BFSAdjacencyDirectedGraph()
