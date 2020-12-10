@@ -49,9 +49,6 @@ namespace GraphTheoryInDetail
             {
                 myGraphDictionary[fromEdge].Add(new Edges(toEdge, cost));
             }
-
-
-
         }
         public List<int> BreadthFirstSearchResult(int startingIndex)
         {
