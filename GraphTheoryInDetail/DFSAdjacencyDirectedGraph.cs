@@ -13,15 +13,16 @@ namespace GraphTheoryInDetail
     //this is a sample of directed graph
     class DFSAdjacencyDirectedGraph
     {
+        private List<int> leafNodeList;
         //an adjacency list, which is a dictionary basically
-        //key is the vertice and List<Edges> is a list store connections from key
+        //key is the edge and List<Edges> is a list store connections from key
         //[key:1,value:[new Edges(toEdge,cost),new Edges(toEdge,cost) ... ]] and such
         private Dictionary<int, List<Edges>> myGraphDictionary;
         public DFSAdjacencyDirectedGraph()
         {
             myGraphDictionary=new Dictionary<int, List<Edges>>();
+            leafNodeList=new List<int>();
         }
-
         //my connectors , edges
         class Edges
         {
@@ -36,7 +37,6 @@ namespace GraphTheoryInDetail
                 this.cost = cost;
             }
         }
-
         public void CreateDirectedEdges(int fromEdge,int toEdge, double cost)
         {
             List<Edges> edges;
@@ -56,6 +56,13 @@ namespace GraphTheoryInDetail
             
         }
 
+        //if graph structure contains no cyle ,
+        //then it is supposed to be a tree
+        public List<int> LeafNodeListForTreeStructure(int startNode)
+        {
+            DFS(myGraphDictionary, startNode);
+            return leafNodeList;
+        }
         public List<int> DepthFirstSearchResult(int startingIndex)
         {
             return DFS(myGraphDictionary,startingIndex);
@@ -84,6 +91,11 @@ namespace GraphTheoryInDetail
                 catch (Exception exception) 
                     when (exception is KeyNotFoundException || exception is InvalidOperationException)
                 {
+                    //if exception is a KeyNotFoundException ,
+                    //it's a very sign of a leaf node of a tree structure
+                    if(exception is KeyNotFoundException)
+                        leafNodeList.Add(stack.Peek());
+
                      nextNode = null;
                 }
 
@@ -103,5 +115,6 @@ namespace GraphTheoryInDetail
 
             return resList;
         }
+
     }
 }
