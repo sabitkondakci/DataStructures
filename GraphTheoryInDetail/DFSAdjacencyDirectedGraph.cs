@@ -56,8 +56,9 @@ namespace GraphTheoryInDetail
             
         }
 
-        //if graph structure contains no cyle ,
+        //if graph structure contains no cycle ,
         //then it is supposed to be a tree
+        //use this method only if your graph contains no cycle
         public List<int> LeafNodeListForTreeStructure(int startNode)
         {
             DFS(myGraphDictionary, startNode);
