@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace GraphTheoryInDetail
     class BFSAdjacencyDirectedGraph
     {
         //an adjacency list, which is a dictionary basically
-        //key is the vertice and List<Edges> is a list store connections from key to 
+        //key is the edge and List<Edges> is a list store connections from key
         //[key:1,value:[new Edges(toEdge,cost),new Edges(toEdge,cost) ... ]] and such
         private Dictionary<int, List<Edges>> myGraphDictionary;
         public BFSAdjacencyDirectedGraph()
@@ -53,6 +53,14 @@ namespace GraphTheoryInDetail
         public List<int> BreadthFirstSearchResult(int startingIndex)
         {
             return BFS(myGraphDictionary, startingIndex);
+        }
+        public int TreeCenter()
+        {
+            return TreeCenterPrivate(myGraphDictionary);
+        }
+        private int TreeCenterPrivate(Dictionary<int, List<Edges>> myGraph)
+        {
+            return myGraph.OrderByDescending(x => x.Value.Count).First().Key;
         }
         private List<int> BFS(Dictionary<int, List<Edges>> myGraph, int startNode)
         {
