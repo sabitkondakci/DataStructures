@@ -56,6 +56,15 @@ namespace GraphTheoryInDetail
             
         }
 
+        public int TreeCenter()
+        {
+            return TreeCenterPrivate(myGraphDictionary);
+        }
+        private int TreeCenterPrivate(Dictionary<int, List<Edges>> myGraph)
+        {
+            return myGraph.OrderByDescending(x=>x.Value.Count).First().Key;
+        }
+
         //if graph structure contains no cycle ,
         //then it is supposed to be a tree
         //use this method only if your graph contains no cycle
