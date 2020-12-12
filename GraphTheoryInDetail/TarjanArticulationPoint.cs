@@ -89,7 +89,7 @@ namespace GraphTheoryInDetail
         // It uses recursive function APUtility() 
         public List<int> ArticulationPoints()
         {
-            // Mark all the vertices as not visited 
+            //all bool values are false by default
             bool[] visited = new bool[amounOfVertices];
             int[] discTime = new int[amounOfVertices];
             int[] lowTime = new int[amounOfVertices];
@@ -108,7 +108,7 @@ namespace GraphTheoryInDetail
                 if (visited[i] == false)
                     APUtility(i, visited, discTime, lowTime, parent, articulationPoint);
 
-            // Now articulationPoint[] contains articulation points, print them 
+            // Now articulationPoint[] contains articulation points, add them to your list
             for (int i = 0; i < amounOfVertices; i++)
                 if (articulationPoint[i] == true)
                     articulationList.Add(i);
