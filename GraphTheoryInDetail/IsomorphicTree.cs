@@ -93,14 +93,14 @@ namespace GraphTheoryInDetail
         // It uses recursive function APUtility() 
         public List<int> ArticulationPoints()
         {
-            // Mark all the vertices as not visited 
+            //all bool values are false by default
             bool[] visited = new bool[amounOfVertices];
             int[] discTime = new int[amounOfVertices];
             int[] lowTime = new int[amounOfVertices];
             int[] parent = new int[amounOfVertices];
             bool[] articulationPoint = new bool[amounOfVertices]; // To store articulation points 
             List<int> articulationList=new List<int>();
-            // Initialize parent and visited, and  
+            // Initialize parent
             for (int i = 0; i < amounOfVertices; i++)
             {
                 parent[i] = empty;
