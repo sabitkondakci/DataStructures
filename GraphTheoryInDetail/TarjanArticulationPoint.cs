@@ -96,7 +96,7 @@ namespace GraphTheoryInDetail
             int[] parent = new int[amounOfVertices];
             bool[] articulationPoint = new bool[amounOfVertices]; // To store articulation points 
             List<int> articulationList = new List<int>();
-            // Initialize parent and visited, and  
+            // Initialize parent
             for (int i = 0; i < amounOfVertices; i++)
             {
                 parent[i] = empty;
