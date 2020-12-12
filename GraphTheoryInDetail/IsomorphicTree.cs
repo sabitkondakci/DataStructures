@@ -112,7 +112,7 @@ namespace GraphTheoryInDetail
                 if (visited[i] == false)
                     APUtility(i, visited, discTime, lowTime, parent, articulationPoint);
 
-            // Now articulationPoint[] contains articulation points, print them 
+            // Now articulationPoint[] contains articulation points, add them to articulationList
             for (int i = 0; i < amounOfVertices; i++)
                 if (articulationPoint[i] == true)
                     articulationList.Add(i);
