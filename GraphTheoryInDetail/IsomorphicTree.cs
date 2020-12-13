@@ -251,9 +251,12 @@ namespace GraphTheoryInDetail
             List<int> leafNodes = AllLeaves(tree);//leaves
             string[] myStringArray=new string[amounOfVertices];//a string array to store strings at indexes
             
+            int root = AllTreeCentersPrivate(tree)[0];
+            bool[] visited=new bool[amounOfVertices];
+
             List<string>[] preliminaryResult=new List<string>[amounOfVertices];
             List<string> printOut=new List<string>();
-                   
+            
             string result = "";
 
             //initiate leaf nodes
@@ -280,7 +283,7 @@ namespace GraphTheoryInDetail
             foreach (var leafNode in leafNodes)
             {
                 int k = leafNode;
-                while (parent[k]!=-1)
+                while (parent[k]!=root && parent[k]!=-1 && !visited[k])
                 {
                     //traverse through up the tree
                     //from parent to parent , till
@@ -292,17 +295,21 @@ namespace GraphTheoryInDetail
                         result = "";
                         foreach (var childrenSum in rootedList[k])
                         {
+                            visited[childrenSum.Key] = true;
                             result += myStringArray[childrenSum.Key];
                         }
 
                         result = "(" + result + ")";
+                        myStringArray[k] = result;
                         preliminaryResult[k].Add(result);
-                    }                  
+                    }
+
                 }
             }
 
             //sort the preliminaryList which stores strings that will be used for encoding
-            var outcome=preliminaryResult.Where(x=>x.Count>0).OrderByDescending(x => x.Count).ToList();
+            var outcome = preliminaryResult.Where(x => x.Count > 0).ToList();
+            outcome.Sort(new AlphanumComparator());
             result = "";
 
             foreach (var res in outcome)
@@ -315,6 +322,26 @@ namespace GraphTheoryInDetail
 
 
             return "(" + result + ")";
+        }
+    }
+
+    public class AlphanumComparator : IComparer<List<string>>
+    {
+        private string sumOfX;
+        private string sumOfY;
+        public int Compare(List<string> x, List<string> y)
+        {
+            foreach (var xnum in x)
+            {
+                sumOfX += xnum;
+            }
+
+            foreach (var ynum in y)
+            {
+                sumOfY += ynum;
+            }
+
+            return sumOfX.CompareTo(sumOfY);
         }
     }
 }
