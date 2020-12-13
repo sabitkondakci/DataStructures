@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace GraphTheoryInDetail
 {
@@ -25,7 +27,10 @@ namespace GraphTheoryInDetail
             adjacencyList = new List<KeyValuePair<int,long>>[amountOfVertices];
             //initialize and create list at every indeks of adjacencyList[i]
             for (int i = 0; i < amountOfVertices; ++i)
-                adjacencyList[i] = new List<KeyValuePair<int,long>>();
+            {
+                adjacencyList[i] = new List<KeyValuePair<int, long>>();
+            }
+                
         }
 
         //adding edges to the graph, this's an undirected graph
@@ -93,7 +98,7 @@ namespace GraphTheoryInDetail
         // It uses recursive function APUtility() 
         public List<int> ArticulationPoints()
         {
-            //all bool values are false by default
+            // all bool values are false by default
             bool[] visited = new bool[amounOfVertices];
             int[] discTime = new int[amounOfVertices];
             int[] lowTime = new int[amounOfVertices];
@@ -112,19 +117,28 @@ namespace GraphTheoryInDetail
                 if (visited[i] == false)
                     APUtility(i, visited, discTime, lowTime, parent, articulationPoint);
 
-            // Now articulationPoint[] contains articulation points, add them to articulationList
+            // Now articulationPoint[] contains articulation points, print them 
             for (int i = 0; i < amounOfVertices; i++)
                 if (articulationPoint[i] == true)
                     articulationList.Add(i);
 
             return articulationList;
         }
-
+        public List<KeyValuePair<int, long>>[] GetGraphList() => adjacencyList;
+        
         public List<int> AllTreeCenters()
         {
             return AllTreeCentersPrivate(adjacencyList);
         }
 
+        public bool AreTreesIsomorphic(List<KeyValuePair<int, long>>[] tree1
+            , List<KeyValuePair<int, long>>[] tree2)
+        {
+            if (EncodeTheTree(tree1) == EncodeTheTree(tree2))
+                return true;
+
+            return false;
+        }
         private List<int> AllTreeCentersPrivate(List<KeyValuePair<int,long>>[] myGraphList)
         {
             int length = myGraphList.Length;
@@ -174,5 +188,137 @@ namespace GraphTheoryInDetail
             return leaves;
         }
 
+        public List<KeyValuePair<int,long>>[] DirectedRootedTreeGenerator(List<KeyValuePair<int,long>>[] tree)
+        {
+
+            List<KeyValuePair<int,long>>[] rootedTreeAdjList = 
+                new List<KeyValuePair<int, long>>[amounOfVertices];
+
+            for (int i = 0; i < amounOfVertices; i++)
+            {
+                rootedTreeAdjList[i]=new List<KeyValuePair<int, long>>();
+            }
+
+            bool[] visited=new bool[amounOfVertices];
+            int root =AllTreeCenters()[0] ;
+
+            Stack<int> stack=new Stack<int>();
+            stack.Push(root);
+
+            while (stack.Count!=0)
+            {
+                int vertice = stack.Pop();
+
+                if (!visited[vertice])
+                {
+                    visited[vertice] = true;
+                    var toEdges = tree[vertice];
+
+                    if (toEdges.Count!=0)
+                    {
+                        foreach (var edge in toEdges)
+                        {
+                            if (!visited[edge.Key])
+                            {
+                                stack.Push(edge.Key);
+                                rootedTreeAdjList[vertice].Add(new KeyValuePair<int, long>(edge.Key,edge.Value));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return rootedTreeAdjList;
+        }
+
+        public List<int> AllLeaves(List<KeyValuePair<int, long>>[] tree)
+        {
+            List<int> leaves=new List<int>();
+            var tempList = DirectedRootedTreeGenerator(tree);
+            for (int i = 0; i < amounOfVertices; i++)
+            {
+                if(tempList[i].Count==0)
+                    leaves.Add(i);
+            }
+
+            return leaves;
+        }
+
+        private string EncodeTheTree(List<KeyValuePair<int, long>>[] tree)
+        {
+            int[] parent = new int[amounOfVertices];//to store parent nodes
+            var rootedList = DirectedRootedTreeGenerator(tree);// a root tree list
+            List<int> leafNodes = AllLeaves(tree);//leaves
+            string[] myStringArray=new string[amounOfVertices];//a string array to store strings at indexes
+            
+            List<string>[] preliminaryResult=new List<string>[amounOfVertices];
+            List<string> printOut=new List<string>();
+           
+            bool[] visitedLeaves=new bool[amounOfVertices];
+            string result = "";
+
+            //initiate leaf nodes
+            foreach (var leafNode in leafNodes)
+                myStringArray[leafNode] = "()";
+            
+            //parent values by default -1
+            //initiate the lists in array
+            for (int i = 0; i < amounOfVertices; i++)
+            {
+                preliminaryResult[i]=new List<string>();
+                parent[i] = -1;
+            }
+            
+            //insert parents on rooted tree
+            for (int i = 0; i < amounOfVertices; i++)
+            {
+                foreach (var keyPair in rootedList[i])
+                {
+                    parent[keyPair.Key] = i;
+                }
+            }
+
+            foreach (var leafNode in leafNodes)
+            {
+                int k = leafNode;
+                while (parent[k]!=-1)
+                {
+                    //traverse through up the tree
+                    //from parent to parent , till
+                    result = myStringArray[k];
+                    k = parent[k];
+                    
+                    if (result != null)
+                    {
+                        result = "";
+                        foreach (var childrenSum in rootedList[k])
+                        {
+                            result += myStringArray[childrenSum.Key];
+                        }
+
+                        result = "(" + result + ")";
+                        preliminaryResult[k].Add(result);
+                    }
+
+                    visitedLeaves[k] = true;
+
+                }
+            }
+
+            //sort the preliminaryList which stores strings that will be used for encoding
+            var outcome=preliminaryResult.Where(x=>x.Count>0).OrderByDescending(x => x.Count).ToList();
+            result = "";
+
+            foreach (var res in outcome)
+            {
+                foreach (var x in res)
+                {
+                    result += x;
+                }
+            }
+
+
+            return "(" + result + ")";
+        }
     }
 }
