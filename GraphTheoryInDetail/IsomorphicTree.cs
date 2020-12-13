@@ -253,8 +253,7 @@ namespace GraphTheoryInDetail
             
             List<string>[] preliminaryResult=new List<string>[amounOfVertices];
             List<string> printOut=new List<string>();
-           
-            bool[] visitedLeaves=new bool[amounOfVertices];
+                   
             string result = "";
 
             //initiate leaf nodes
@@ -298,10 +297,7 @@ namespace GraphTheoryInDetail
 
                         result = "(" + result + ")";
                         preliminaryResult[k].Add(result);
-                    }
-
-                    visitedLeaves[k] = true;
-
+                    }                  
                 }
             }
 
