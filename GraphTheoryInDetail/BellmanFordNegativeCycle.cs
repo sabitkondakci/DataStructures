@@ -39,33 +39,40 @@ namespace GraphTheoryInDetail
             // Only in the worst case does it take numberOfVertices-1 iterations for the Bellman-Ford
             // Another stopping condition is when we're unable to
             // relax an edge, this means we have reached the optimal solution early.
-            
+
             // For each vertex, apply relaxation for all the edges
-            for (int v = 0; v < numberOfVertices - 1 ; v++)
+
+            for (int i = 0; i < numberOfVertices-1; i++)
             {
-                foreach (var edge in myAdjGraph[v])
+                for (int v = 0; v < numberOfVertices; v++)
                 {
-                    if (distance[v] + edge.Value < distance[edge.Key])
+                    foreach (var edge in myAdjGraph[v])
                     {
-                        distance[edge.Key] = distance[v] + edge.Value;
+                        if (distance[v] + edge.Value < distance[edge.Key])
+                        {
+                            distance[edge.Key] = distance[v] + edge.Value;
+                        }
                     }
-                }
+                } 
             }
 
             // Run algorithm a second time to detect which nodes are part
             // of a negative cycle. A negative cycle has occurred if we
             // can find a better path beyond the optimal solution.
-          
 
-            for (int v = 0; v < numberOfVertices - 1 ; v++)
+
+            for (int k = 0; k < numberOfVertices - 1; k++)
             {
-                foreach (var edge in myAdjGraph[v])
+                for (int v = 0; v < numberOfVertices; v++)
                 {
-                    if (distance[v] + edge.Value < distance[edge.Key])
+                    foreach (var edge in myAdjGraph[v])
                     {
-                        distance[edge.Key] = double.NegativeInfinity;
+                        if (distance[v] + edge.Value < distance[edge.Key])
+                        {
+                            distance[edge.Key] = double.NegativeInfinity;
+                        }
                     }
-                }
+                } 
             }
 
             // Return the array containing the shortest distance to every node
