@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GraphTheoryInDetail
 {
-    class BellmanFordNegativeWeight
+    class BellmanFordNegativeCycle
     {
         private List<KeyValuePair<int, double>>[] myGraph;
         public List<KeyValuePair<int, double>>[] GetGraph
         {
             get { return myGraph; }
         }
-        public BellmanFordNegativeWeight(int numOfVertices)
+        public BellmanFordNegativeCycle(int numOfVertices)
         {
             myGraph = new List<KeyValuePair<int, double>>[numOfVertices];
 
