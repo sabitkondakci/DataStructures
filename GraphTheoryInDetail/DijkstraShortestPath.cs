@@ -33,11 +33,12 @@ namespace GraphTheoryInDetail
             myGraph[toVer].Add(new KeyValuePair<int, double>(fromVer, weight));
         }
         public double LazyDijkstraShortPath(List<KeyValuePair<int,double>>[] graphAdjList,
-            int startNode,int endNode)
+            int startNode,int endNode,out bool[] path)
         {
             int numOfVertices = graphAdjList.Length;
             bool[] visited = new bool[numOfVertices];
             double[] distance = new double[numOfVertices];
+            bool[] resultPath=new bool[numOfVertices];//path you visit
 
             for (int i = 0; i < numOfVertices; i++)
             {
@@ -45,6 +46,9 @@ namespace GraphTheoryInDetail
             }
 
             distance[startNode] = 0;
+
+            resultPath[startNode] = true;
+            resultPath[endNode] = true;
 
             SimplePriorityQueue<int,double> priorityQueue=
                 new SimplePriorityQueue<int,double>();
@@ -70,24 +74,31 @@ namespace GraphTheoryInDetail
 
                     if (distNew < distance[keyValuePair.Key])
                     {
+                        resultPath[indexofNode] = true;
                         distance[keyValuePair.Key] = distNew;
                         priorityQueue.Enqueue(keyValuePair.Key, distNew);
                     }
                     
                 }
 
-                if (indexofNode == endNode) 
+                if (indexofNode == endNode)
+                {
+                    path = resultPath;
                     return distance[endNode];
+                }
+                    
             }
 
+            path = resultPath;
             return double.PositiveInfinity;
         }
         public double EagerDijkstraShortPath(List<KeyValuePair<int, double>>[] graphAdjList,
-            int startNode, int endNode)
+            int startNode, int endNode,out bool[] path)
         {
             int numOfVertices = graphAdjList.Length;
             bool[] visited = new bool[numOfVertices];
             double[] distance = new double[numOfVertices];
+            bool[] resultPath = new bool[numOfVertices];//path you visit
 
             for (int i = 0; i < numOfVertices; i++)
             {
@@ -95,6 +106,9 @@ namespace GraphTheoryInDetail
             }
 
             distance[startNode] = 0;
+
+            resultPath[startNode] = true;
+            resultPath[endNode] = true;
 
             SimplePriorityQueue<int, double> priorityQueue =
                 new SimplePriorityQueue<int, double>();
@@ -120,6 +134,7 @@ namespace GraphTheoryInDetail
 
                     if (distNew < distance[keyValuePair.Key])
                     {
+                        resultPath[indexofNode] = true;
                         distance[keyValuePair.Key] = distNew;
                         if(!priorityQueue.EnqueueWithoutDuplicates(keyValuePair.Key, distNew))
                             priorityQueue.UpdatePriority(keyValuePair.Key,distNew);
@@ -127,9 +142,14 @@ namespace GraphTheoryInDetail
                 }
 
                 if (indexofNode == endNode)
+                {
+                    path = resultPath;
                     return distance[endNode];
+                }
+                    
             }
 
+            path = resultPath;
             return double.PositiveInfinity;
         }
     }
