@@ -56,8 +56,6 @@ namespace GraphTheoryInDetail
                 int indexofNode = priorityQueue.Dequeue();
                 visited[indexofNode] = true;
 
-                graphAdjList[indexofNode].Sort(new CompareKeyValuePairs());
-
                 foreach (var keyValuePair in graphAdjList[indexofNode])
                 {
                     double minValue = keyValuePair.Value;
@@ -108,8 +106,6 @@ namespace GraphTheoryInDetail
                 int indexofNode = priorityQueue.Dequeue();
                 visited[indexofNode] = true;
 
-                graphAdjList[indexofNode].Sort(new CompareKeyValuePairs());
-
                 foreach (var keyValuePair in graphAdjList[indexofNode])
                 {
                     double minValue = keyValuePair.Value;
@@ -135,14 +131,6 @@ namespace GraphTheoryInDetail
             }
 
             return double.PositiveInfinity;
-        }
-    }
-
-    class CompareKeyValuePairs : IComparer<KeyValuePair<int, double>>
-    {
-        public int Compare(KeyValuePair<int, double> x, KeyValuePair<int, double> y)
-        {
-            return x.Value.CompareTo(y.Value);
         }
     }
 }
