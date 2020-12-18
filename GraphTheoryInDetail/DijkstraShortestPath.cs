@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Priority_Queue;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +72,6 @@ namespace GraphTheoryInDetail
 
                     if (distNew < distance[keyValuePair.Key])
                     {
-                        previousNodes[keyValuePair.Key] = indexofNode;
                         distance[keyValuePair.Key] = distNew;
                         priorityQueue.Enqueue(keyValuePair.Key, distNew);
                     }
@@ -80,6 +79,58 @@ namespace GraphTheoryInDetail
                 }
 
                 if (indexofNode == endNode) 
+                    return distance[endNode];
+            }
+
+            return double.PositiveInfinity;
+        }
+        public double EagerDijkstraShortPath(List<KeyValuePair<int, double>>[] graphAdjList,
+            int startNode, int endNode)
+        {
+            int numOfVertices = graphAdjList.Length;
+            bool[] visited = new bool[numOfVertices];
+            double[] distance = new double[numOfVertices];
+
+            for (int i = 0; i < numOfVertices; i++)
+            {
+                distance[i] = double.PositiveInfinity;
+            }
+
+            distance[startNode] = 0;
+
+            SimplePriorityQueue<int, double> priorityQueue =
+                new SimplePriorityQueue<int, double>();
+
+            priorityQueue.Enqueue(startNode, 0.0);
+
+            while (priorityQueue.Count != 0)
+            {
+                int indexofNode = priorityQueue.Dequeue();
+                visited[indexofNode] = true;
+
+                graphAdjList[indexofNode].Sort(new CompareKeyValuePairs());
+
+                foreach (var keyValuePair in graphAdjList[indexofNode])
+                {
+                    double minValue = keyValuePair.Value;
+
+                    if (distance[keyValuePair.Key] < minValue)
+                        continue;
+
+                    if (visited[keyValuePair.Key])
+                        continue;
+
+                    double distNew = distance[indexofNode] + keyValuePair.Value;
+
+                    if (distNew < distance[keyValuePair.Key])
+                    {
+                        distance[keyValuePair.Key] = distNew;
+                        if(!priorityQueue.EnqueueWithoutDuplicates(keyValuePair.Key, distNew))
+                            priorityQueue.UpdatePriority(keyValuePair.Key,distNew);
+                    }
+                }
+
+                if (indexofNode == endNode)
                     return distance[endNode];
             }
 
