@@ -80,17 +80,17 @@ namespace GraphTheoryInDetail
                         continue;
 
                     double distNew = distance[indexofNode] + keyValuePair.Value;
-                    double heulDistNew = distNew + heuristicList[keyValuePair.Key];
+                    double heurDistNew = distNew + heuristicList[keyValuePair.Key];
 
-                    if (heulDistNew < heuristicNewDistance[keyValuePair.Key])
+                    if (heurDistNew < heuristicNewDistance[keyValuePair.Key])
                     {
                         prevNode[keyValuePair.Key] = indexofNode;
                         distance[keyValuePair.Key] = distNew;
-                        heuristicNewDistance[keyValuePair.Key] = heulDistNew;
+                        heuristicNewDistance[keyValuePair.Key] = heurDistNew;
 
                         //Priority Queue for heristicList values
-                        if (!priorityQueue.EnqueueWithoutDuplicates(keyValuePair.Key, heulDistNew))
-                            priorityQueue.UpdatePriority(keyValuePair.Key, heulDistNew);
+                        if (!priorityQueue.EnqueueWithoutDuplicates(keyValuePair.Key, heurDistNew))
+                            priorityQueue.UpdatePriority(keyValuePair.Key, heurDistNew);
 
                     }
                 }
