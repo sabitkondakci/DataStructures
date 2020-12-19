@@ -69,8 +69,7 @@ namespace GraphTheoryInDetail
                 visited[indexofNode] = true;
 
                 foreach (var keyValuePair in graphAdjList[indexofNode])
-                {
-                    double minValue = keyValuePair.Value;
+                {                  
                     double heuristicMinValue = heuristicList[keyValuePair.Key];
 
                     if (heuristicNewDistance[keyValuePair.Key] < heuristicMinValue)
