@@ -84,7 +84,7 @@ namespace GraphTheoryInDetail
 
                 if (indexofNode == endNode)
                 {
-                    for (int at = endNode; at != 0; at = prevNode[at]) 
+                    for (int at = endNode; at != startNode; at = prevNode[at]) 
                         resultPath.Add(at);
 
                     if(!resultPath.Contains(startNode))
@@ -157,7 +157,7 @@ namespace GraphTheoryInDetail
 
                 if (indexofNode == endNode)
                 {
-                    for (int at = endNode; at != 0; at = prevNode[at])
+                    for (int at = endNode; at != startNode; at = prevNode[at])
                         resultPath.Add(at);
 
                     if (!resultPath.Contains(startNode))
