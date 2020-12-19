@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Priority_Queue;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace GraphTheoryInDetail
 {
     //the algithm is faster but less space efficient
-    //by reason of heuristic values should be stored beforehand
+    //by reason of heristic values should be stored beforehand
     class AStarAlgorithmWithEagerDijkstra
     {
         private List<KeyValuePair<int, double>>[] myGraph;
@@ -71,10 +71,10 @@ namespace GraphTheoryInDetail
                 foreach (var keyValuePair in graphAdjList[indexofNode])
                 {
                     double minValue = keyValuePair.Value;
-                    double heulMinValue = heuristicList[keyValuePair.Key];
+                    double heuristicMinValue = heuristicList[keyValuePair.Key];
 
                     if (distance[keyValuePair.Key] < minValue ||
-                        heuristicNewDistance[keyValuePair.Key] < heulMinValue)
+                        heuristicNewDistance[keyValuePair.Key] < heuristicMinValue)
                         continue;
 
                     if (visited[keyValuePair.Key])
