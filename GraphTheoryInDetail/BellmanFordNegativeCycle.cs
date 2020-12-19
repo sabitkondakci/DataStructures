@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace GraphTheoryInDetail
 {
+    //Bellman Ford algorithm is mainly used in the field of finance 
+    //time complexity : O(n^2) 
     class BellmanFordNegativeCycle
     {
         private List<KeyValuePair<int, double>>[] myGraph;
@@ -36,14 +38,18 @@ namespace GraphTheoryInDetail
             }
             distance[0] = 0;
 
+            //if graph can't no longer be relaxed , don't iterate !
+            bool relaxationCheck = true;// a bool value for optimization
+
             // Only in the worst case does it take numberOfVertices-1 iterations for the Bellman-Ford
             // Another stopping condition is when we're unable to
             // relax an edge, this means we have reached the optimal solution early.
 
             // For each vertex, apply relaxation for all the edges
 
-            for (int i = 0; i < numberOfVertices-1; i++)
+            for (int i = 0; (i < numberOfVertices-1) && relaxationCheck; i++)
             {
+                relaxationCheck = false;
                 for (int v = 0; v < numberOfVertices; v++)
                 {
                     foreach (var edge in myAdjGraph[v])
@@ -51,6 +57,7 @@ namespace GraphTheoryInDetail
                         if (distance[v] + edge.Value < distance[edge.Key])
                         {
                             distance[edge.Key] = distance[v] + edge.Value;
+                            relaxationCheck = true;
                         }
                     }
                 } 
@@ -60,9 +67,10 @@ namespace GraphTheoryInDetail
             // of a negative cycle. A negative cycle has occurred if we
             // can find a better path beyond the optimal solution.
 
-
-            for (int k = 0; k < numberOfVertices - 1; k++)
+            relaxationCheck = true;
+            for (int k = 0; (k < numberOfVertices - 1) && relaxationCheck; k++)
             {
+                relaxationCheck = false;
                 for (int v = 0; v < numberOfVertices; v++)
                 {
                     foreach (var edge in myAdjGraph[v])
@@ -70,6 +78,7 @@ namespace GraphTheoryInDetail
                         if (distance[v] + edge.Value < distance[edge.Key])
                         {
                             distance[edge.Key] = double.NegativeInfinity;
+                            relaxationCheck = true;
                         }
                     }
                 } 
