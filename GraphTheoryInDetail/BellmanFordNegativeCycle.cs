@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GraphTheoryInDetail
 {
-    //Bellman Ford algorithm is mainly used in the field of finance 
+    //Bellman Ford algorithm is mainly used in the field of finance and routers' protocols
     //time complexity : O(n^2) 
     class BellmanFordNegativeCycle
     {
