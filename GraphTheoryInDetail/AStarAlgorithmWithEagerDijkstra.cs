@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace GraphTheoryInDetail
 {
     //the algithm is faster but less space efficient
-    //by reason of heristic values should be stored beforehand
+    //by reason of heuristic values should be stored beforehand
     class AStarAlgorithmWithEagerDijkstra
     {
         private List<KeyValuePair<int, double>>[] myGraph;
