@@ -180,7 +180,7 @@ namespace GraphTheoryInDetail
         private List<double> ShortestDistanceListHeuristic(List<KeyValuePair<int, double>>[] graphAdjList,int endNode)
         {
             List<double> shrDistance=new List<double>();
-            for (int i = 0; i <= endNode; i++)
+            for (int i = 0; i < graphAdjList.Length; i++)
             {
                 shrDistance.Add(EagerDijkstraShortPath(graphAdjList,i,endNode));
             }
