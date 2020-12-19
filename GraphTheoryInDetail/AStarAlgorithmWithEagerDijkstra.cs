@@ -73,8 +73,7 @@ namespace GraphTheoryInDetail
                     double minValue = keyValuePair.Value;
                     double heuristicMinValue = heuristicList[keyValuePair.Key];
 
-                    if (distance[keyValuePair.Key] < minValue ||
-                        heuristicNewDistance[keyValuePair.Key] < heuristicMinValue)
+                    if (heuristicNewDistance[keyValuePair.Key] < heuristicMinValue)
                         continue;
 
                     if (visited[keyValuePair.Key])
