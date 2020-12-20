@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,13 +35,17 @@ namespace GraphTheoryInDetail
             my2DGraph[fromNode, endNode] = cost;
         }
 
+        //inserted parameter of my2DGraph will change at the end
+        //so that use a copy of your graph
         public double[,] FloydWarshallForEachNode(double[,] my2DGraph)
         {
-            for (int k = 0; k < N; k++)
+            int numOfNodes = my2DGraph.GetLength(0);
+
+            for (int k = 0; k < numOfNodes; k++)
             {
-                for (int i = 0; i < N; i++)
+                for (int i = 0; i < numOfNodes; i++)
                 {
-                    for (int j = 0; j < N; j++)
+                    for (int j = 0; j < numOfNodes; j++)
                     {
                         my2DGraph[i, j] = Math.Min(my2DGraph[i, j],
                             my2DGraph[i, k] + my2DGraph[k, j]);
