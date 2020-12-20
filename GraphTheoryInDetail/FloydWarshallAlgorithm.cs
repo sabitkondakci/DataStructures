@@ -37,9 +37,11 @@ namespace GraphTheoryInDetail
 
         //inserted parameter of my2DGraph will change at the end
         //so that use a copy of your graph
-        public double[,] FloydWarshallForEachNode(double[,] my2DGraph)
+        //return true or false if graph contains a negative cycle
+        public bool FloydWarshallForEachNode(double[,] my2DGraph)
         {
             int numOfNodes = my2DGraph.GetLength(0);
+            bool negCycle = false;
 
             for (int k = 0; k < numOfNodes; k++)
             {
@@ -61,12 +63,15 @@ namespace GraphTheoryInDetail
                     for (int j = 0; j < numOfNodes; j++)
                     {
                         if (my2DGraph[i, j] > my2DGraph[i, k] + my2DGraph[k, j])
+                        {
                             my2DGraph[i, j] = double.NegativeInfinity;
+                            negCycle = true;
+                        }
                     }
                 }
             }
 
-            return my2DGraph;
+            return negCycle;
         }
 
     }
