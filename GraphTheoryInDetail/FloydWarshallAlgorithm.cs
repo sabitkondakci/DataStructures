@@ -53,6 +53,19 @@ namespace GraphTheoryInDetail
                 }
             }
 
+            //negative cycles
+            for (int k = 0; k < numOfNodes; k++)
+            {
+                for (int i = 0; i < numOfNodes; i++)
+                {
+                    for (int j = 0; j < numOfNodes; j++)
+                    {
+                        if (my2DGraph[i, j] > my2DGraph[i, k] + my2DGraph[k, j])
+                            my2DGraph[i, j] = double.NegativeInfinity;
+                    }
+                }
+            }
+
             return my2DGraph;
         }
 
