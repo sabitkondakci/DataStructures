@@ -20,7 +20,7 @@ namespace GraphTheoryInDetail
     //Eulerian Path, Directed Graph:
     // at most one vertex has outdegree-indegree=1 , the node is a starting node
     // and at most one vertex has indegree-outdegree=1 , the node is an end node
-    // all ther vertices have eqaul amount of indegrees and outdegrees
+    // all the vertices have eqaul amount of indegrees and outdegrees
     class EulerianPathAlgorithm
     {
         private List<KeyValuePair<int, long>>[] myGraph;
